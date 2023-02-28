@@ -11,11 +11,6 @@ class BaseDistribution(ABC):
     functions that operate on the data (`y`) and the outputs of the xgboost (`params`).
     """
 
-    def __init__(self):
-        self.Predictions = namedtuple("Predictions", (p for p in self.params))
-        # attach to globals to make pickling of namedtuple work
-        globals()[self.Predictions.__name__] = self.Predictions
-
     def check_target(self, y):
         """Ensure that the target is compatible with the chosen distribution"""
 
