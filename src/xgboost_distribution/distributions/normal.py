@@ -91,7 +91,7 @@ class Normal(BaseDistribution):
         log_scale = np.clip(log_scale, -20, 20)
         scale = np.exp(log_scale)
 
-        return self.Predictions(loc=loc, scale=scale)
+        return loc, scale
 
     def starting_params(self, y):
         return np.mean(y), np.log(np.std(y))
