@@ -58,6 +58,8 @@ class Normal(BaseDistribution):
         """Gradient and diagonal hessian"""
 
         loc, log_scale = self._split_params(params)
+        
+        log_scale = np.clip(log_scale, -20, 20)
         var = np.exp(2 * log_scale)
 
         grad = np.zeros(shape=(len(y), 2))
@@ -85,8 +87,8 @@ class Normal(BaseDistribution):
 
     def predict(self, params):
         loc, log_scale = self._split_params(params)
-        # TODO: do we need clipping for safety?
-        # log_scale = np.clip(log_scale, -100, 100)
+        
+        log_scale = np.clip(log_scale, -20, 20)
         scale = np.exp(log_scale)
 
         return self.Predictions(loc=loc, scale=scale)
